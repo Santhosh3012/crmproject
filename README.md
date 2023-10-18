@@ -12,7 +12,6 @@ This is a Customer Relationship Management (CRM) project implemented using Djang
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
