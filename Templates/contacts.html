@@ -1,0 +1,317 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0-beta3/css/all.min.css" integrity="sha512-aDzmODPtFZkxmsVem4n4eSjqb9L/N+AbzuZrgBBk7sCl1/mTDg5KFvOd6yTPxTfwmH2vLYB+zDg8eczzB5Xh0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Dashboard v.4</title>
+
+    <link href="{% static 'css2/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome2/css/font-awesome.css' %}" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="{ % static 'css2/plugins/toastr' %}"  rel="stylesheet">
+    <link href="{% static 'css2/bootstrap.css.map' %}" rel="stylesheet">
+   
+    <link href="{% static 'css2/bootstrap.min.css.map' %}" rel="stylesheet">
+    <link href="{% static 'css2/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css2/style.css' %}" rel="stylesheet">
+    <style>
+        .icon-button {
+          display: inline-block;
+          padding: 5px 10px;
+          background-color: #fff; /* Change to white */
+          border-radius: 5px;
+          margin-right: 5px; /* Optional: Add some space between buttons */
+      }
+      
+      .icon-button a {
+          color: #000; /* Change to black or desired text color */
+          text-decoration: none;
+      }
+      /* .nav-second-level {
+          display: none;
+      }
+      
+      .nav-second-level.show {
+          display: block;
+      } */
+      
+      
+       
+      </style>
+     
+    
+    
+    
+</head>
+
+<body>
+    <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <img alt="image" class="rounded-circle" src="{% static 'img2/profile_small.jpg' %}"/>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="block m-t-xs font-bold">David Williams</span>
+                            <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        </a>
+                        <!-- <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
+                            <li><a class="dropdown-item" href="mailbox.html">Mailbox</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/crmapp/login/">Logout</a></li>
+                        </ul> -->
+                    </div>
+                    <div class="logo-element">
+                        CRM
+                    </div>
+                </li>
+                <li class="active">
+                    <a href="/crmapp/dashboard/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> </a>
+                    <ul class="nav nav-second-level">
+                        <!-- <li><a href="dashboard_2.html">Dashboard v.2</a></li>
+                        <li><a href="dashboard_3.html">Dashboard v.3</a></li>
+                        <li class="active"><a href="dashboard_4_1.html">Dashboard v.4</a></li>
+                        <li><a href="dashboard_5.html">Dashboard v.5 </a></li> -->
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="/crmapp/contacts/"><i class="fa fa-th-large"></i> <span class="nav-label">Contacts</span></a>
+                    <ul class="nav nav-second-level">
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Manage CRM Account</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="/crmapp/create_acc/">Add Crm User</a></li>
+                        <li><a href="/crmapp/crm_list/">List Crm User</a></li>
+                        <li><a href="/crmapp/create_crm_contact/">Add Crm Contact</a></li>
+                        <li><a href="/crmapp/crm_contact_list/">List Crm Contact</a></li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <!-- <a href="/crmapp/change_password/{user.id}/"><i class="fa fa-diamond"></i> <span class="nav-label">Change Password</span></a> -->
+                </li>
+                <li>
+                    <a href="/crmapp/dashboard/"><i class="fa fa-diamond"></i> <span class="nav-label">UserProfile</span></a>
+                </li>
+               
+
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="{ % static 'img2/a7.jpg' %}">
+                                </a>
+                                <div>
+                                    <small class="float-right">46h ago</small>
+                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="{ % static 'img2/a4.jpg' % }">
+                                </a>
+                                <div>
+                                    <small class="float-right text-navy">5h ago</small>
+                                    <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br>
+                                    <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a class="dropdown-item float-left" href="profile.html">
+                                    <img alt="image" class="rounded-circle" src="{ % static 'img2/profile.jpg' %}">
+                                </a>
+                                <div>
+                                    <small class="float-right">23h ago</small>
+                                    <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
+                                    <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="mailbox.html" class="dropdown-item">
+                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="float-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="profile.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="float-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <a href="grid_options.html" class="dropdown-item">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="float-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="notifications.html" class="dropdown-item">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a href="/crmapp/login/">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+            </ul>
+            
+
+        </nav>
+        </div>
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-9">
+                <h2>Contacts 2</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        App Views
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>Contacts 2</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                {% for user in data %}
+                    <div class="col-lg-3">
+                        <div class="contact-box center-version">
+                            <a href="#">
+                                <img alt="image" class="rounded-circle" src="{% static 'img2/no_image.jpg' %}">
+                                <h3 class="m-b-xs"><strong>{{user.ceo_name}}</strong></h3>
+                                <div class="font-bold">CEO</div>
+                                <address class="m-t-md">
+                                    <strong>{{user.company_name}}</strong><br>
+                                    {{user.address}}<br>
+                                    <abbr title="PostCode"></abbr>{{user.postcode}}
+                                </address>
+                            </a>
+                            <div class="contact-box-footer">
+                                <div class="m-t-xs btn-group">
+                                    <a href=""  class="btn btn-xs btn-white"><i class="fa fa-phone"></i> Call </a>
+                                    <a href=""  class="btn btn-xs btn-white"><i class="fa fa-envelope"></i> Email</a>
+                                    <a href=""  class="btn btn-xs btn-white"><i class="fa fa-user-plus"></i> Follow</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+
+            
+       
+    <div class="footer">
+        <div class="float-right">
+            <strong></strong> 
+        </div>
+        <div>
+            <strong>Footer</strong> Example Company
+        </div>
+    </div>
+   
+
+<!-- Mainly scripts -->
+<script src="js2/jquery-3.1.1.min.js"></script>
+<script src="js2/popper.min.js"></script>
+<script src="js2/bootstrap.js"></script>
+<script src="js2/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js2/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js2/inspinia.js"></script>
+<script src="js2/plugins/pace/pace.min.js"></script>
+
+
+</body>
+
+</html>

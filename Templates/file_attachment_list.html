@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Attachments List</title>
+</head>
+<body>
+    <h1>File Attachments List</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>Created Date</th>
+            <th>Status</th>
+            <th>Account ID</th>
+            <th>Account Name</th>
+            <th>Actions</th>
+        </tr>
+        {% for file in files %}
+        <tr>
+            <td>{{file.id}}</td>
+            <td>{{file.uploaded_file}}</td>
+            <td>{{file.created_date}}</td>
+            <td>{{file.status}}</td>
+            <td>{{file.company_unique_id}}</td>
+            <td>{{file.company_name}}</td>
+            <td>
+                <a href="{% url 'download_file' file_attachment.id %}"><button>Download</button></a>
+                <a href="{% url 'delete_file' file_attachment.id %}"><button>Delete</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

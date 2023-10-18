@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Dashboard v.4</title>
+
+    <link href="{% static 'css2/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'font-awesome2/css/font-awesome.css' %}" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="{ % static 'css2/plugins/toastr' %}"  rel="stylesheet">
+    <link href="{% static 'css2/bootstrap.css.map' %}" rel="stylesheet">
+   
+    <link href="{% static 'css2/bootstrap.min.css.map' %}" rel="stylesheet">
+    <link href="{% static 'css2/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css2/style.css' %}" rel="stylesheet">
+
+    <style>
+        .styled-form {
+            margin-top: 50px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 0;
+            border-color: #ccc;
+        }
+
+        .btn-primary {
+            border-radius: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <img alt="image" class="rounded-circle" src="{% static 'img2/profile_small.jpg' %}"/>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="block m-t-xs font-bold">David Williams</span>
+                            <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                        </a>
+                        <!-- <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
+                            <li><a class="dropdown-item" href="mailbox.html">Mailbox</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/crmapp/login/">Logout</a></li>
+                        </ul> -->
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
+                </li>
+                <li class="active">
+                    <a href="/crmapp/dashboard/"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> </a>
+                    <ul class="nav nav-second-level">
+                        <!-- <li><a href="dashboard_2.html">Dashboard v.2</a></li>
+                        <li><a href="dashboard_3.html">Dashboard v.3</a></li>
+                        <li class="active"><a href="dashboard_4_1.html">Dashboard v.4</a></li>
+                        <li><a href="dashboard_5.html">Dashboard v.5 </a></li> -->
+                    </ul>
+                </li>
+
+                <li class="active">
+                    <a href="/crmapp/contacts/"><i class="fa fa-th-large"></i> <span class="nav-label">Contacts</span></a>
+                    <ul class="nav nav-second-level">
+                    </ul>
+                </li>
+                
+                <li class="active">
+                    <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Manage CRM Account</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="/crmapp/create_acc/">Add Crm User</a></li>
+                        <li><a href="/crmapp/crm_list/">List Crm User</a></li>
+                        <li><a href="/crmapp/create_crm_contact/">Add Crm Contact</a></li>
+                        <li><a href="/crmapp/crm_contact_list/">List Crm Contact</a></li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <!-- <a href="/crmapp/change_password/{user.id}/"><i class="fa fa-diamond"></i> <span class="nav-label">Change Password</span></a> -->
+                </li>
+                <li>
+                    <a href="/crmapp/dashboard/"><i class="fa fa-diamond"></i> <span class="nav-label">UserProfile</span></a>
+                </li>
+               
+        
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form>
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                </li>   
+
+
+                <li>
+                    <a href="/crmapp/login/">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        </div>
+      
+       
+            <h3 class="text-center pt-4">Create Crm Contact</h3>
+
+    <div class="container animated fadeInDown">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form method="post" class="styled-form" action="{% url 'create_crm_contact' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label" for="id_foreign_key">CRM Account Associated:</label>
+                                <select onclick="get_name()" id="my_select" name="foreign_key" class="form-control" required>
+                                    <!-- <option value="none"></option> -->
+                                    {% for account in accounts %}
+
+                                     <option value={{account.company_unique_id}}>{{account.company_name}}</option>
+                                     {% endfor %}
+                                </select>
+                                <div class="form-group" style="display:none;" class="form-group"><label>&#42;Name</label> <input id="crm_name" type="text" style="width: 520px;" placeholder="Enter Your name" value="" class="form-control" name="company_name"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="id_display_name">Display Name:</label>
+                                <input type="text" id="id_display_name" name="display_name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="id_decision_maker">Decision Maker:</label>
+                                <input type="text" id="id_decision_maker" name="decision_maker" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="id_designation">Designation:</label>
+                                <input type="text" id="id_designation" name="designation" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="id_birthdate">Birthdate:</label>
+                                <input type="date" id="id_birthdate" name="birthdate" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="id_email">Email:</label>
+                                <input type="email" id="id_email" name="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="id_department">Department:</label>
+                                <input type="text" id="id_department" name="department" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="id_mobile">Mobile:</label>
+                                <input type="text" id="id_mobile" name="mobile" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="id_status">Status:</label>
+                                <select id="id_status" name="status" class="form-control" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-primary btn-block">Create Contact List</button> -->
+                    
+                    <button type="submit" class="btn btn-lg btn-primary btn-block custom-btn mx-auto">Create Contact List</button>
+
+                    
+                    <!-- <button class="btn btn-lg btn-secondary" onclick="resetFilter()">Reset</button> -->
+                    <style>
+                        
+                        .custom-btn {
+                            padding: 8px 14px; /* Adjust the padding to your desired size */
+                            font-size: 14px;   /* Adjust the font size to your desired size */
+                            width: 200px; /* Adjust the width to your desired size */
+                        }
+                    </style>
+                </form>
+            </div>
+        </div>
+    </div>
+      
+    <script>
+
+        window.onload = function() {
+        console.log("Page has finished loading!");
+      // Additional code or actions you want to perform
+        var selectElement = document.getElementById("my_select");
+      // var valueName = selectElement.value
+      // console.log("get_name",valueName)
+        
+        // Get the selected <option> element
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        console.log("selectedOption",selectedOption)
+        // Get the text of the selected option
+        var selectedText = selectedOption.text;
+        console.log("selectedText",selectedText)
+        var newValue = document.getElementById("crm_name");
+  
+        console.log(newValue)
+        newValue.value = selectedText;
+
+    }; 
+
+    function get_name() {
+        var selectElement = document.getElementById("my_select");
+        // var valueName = selectElement.value
+        // console.log("get_name",valueName)
+        
+        // Get the selected <option> element
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        console.log("selectedOption",selectedOption)
+        // Get the text of the selected option
+        var selectedText = selectedOption.text;
+        console.log("selectedText",selectedText)
+        var newValue = document.getElementById("crm_name");
+  
+        console.log(newValue)
+        newValue.value = selectedText;
+    }
+</script>
+   
+</body>
+
+</html>
